@@ -13,8 +13,7 @@ public class Produto {
     private String name;
     private BigDecimal amout;
     private String description;
-
-    @Enumerated(EnumType.STRING)
+    @ManyToOne
     private Categoria category;
 
     private LocalDate dataCadastrato = LocalDate.now();
