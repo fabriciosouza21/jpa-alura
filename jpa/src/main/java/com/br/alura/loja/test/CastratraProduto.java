@@ -1,10 +1,10 @@
 package com.br.alura.loja.test;
 
+import com.br.alura.loja.dao.ProdutoDao;
 import com.br.alura.loja.model.Produto;
+import com.br.alura.loja.util.JpaUtil;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import java.math.BigDecimal;
 
 public class CastratraProduto {
@@ -14,10 +14,11 @@ public class CastratraProduto {
         produto.setAmout(new BigDecimal("500"));
         produto.setDescription("xiomi");
 
-        EntityManagerFactory factory = Persistence.createEntityManagerFactory("loja");
-        EntityManager entityManager = factory.createEntityManager();
+        EntityManager entityManager = JpaUtil.getEntityManageProduto();
+        ProdutoDao produtoDao = new ProdutoDao(entityManager);
+
         entityManager.getTransaction().begin();
-        entityManager.persist(produto);
+        produtoDao.cadastra(produto);
         entityManager.getTransaction().commit();
         entityManager.close();
 
