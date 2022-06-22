@@ -1,6 +1,6 @@
 package com.br.alura.loja.dao;
 
-import com.br.alura.loja.model.Produto;
+import com.br.alura.loja.model.produto.Produto;
 
 import javax.persistence.EntityManager;
 public class ProdutoDao {
