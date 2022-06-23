@@ -18,6 +18,9 @@ public class Produto {
 
     private LocalDate dataCadastrato = LocalDate.now();
 
+    public Produto() {
+    }
+
     public Produto(String name, BigDecimal amout, String description, Categoria category) {
         this.name = name;
         this.amout = amout;

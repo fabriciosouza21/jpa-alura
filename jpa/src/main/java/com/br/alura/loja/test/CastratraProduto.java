@@ -19,11 +19,12 @@ public class CastratraProduto {
         entityManager.getTransaction().begin();
         categoryDao.cadastra(phoner);
         phoner.setName("Moto g 20");
-        produtoDao.cadastra(produto);
-        entityManager.getTransaction().commit();
+        entityManager.flush();
         entityManager.clear();
         phoner = entityManager.merge(phoner);
         phoner.setName("xiomi");
+        entityManager.flush();
         entityManager.remove(phoner);
+        entityManager.getTransaction().commit();
     }
 }
