@@ -14,4 +14,14 @@ public class CategoryDao {
     public void cadastra(Categoria categoria){
         em.persist(categoria);
     }
+
+    public Categoria atualizar (Categoria categoria){
+        return em.merge(categoria);
+    }
+
+    public void remover(Categoria categoria){
+        categoria = em.merge(categoria);
+        em.remove(categoria);
+    }
+
 }
