@@ -19,6 +19,8 @@ public class CastratraProduto {
         System.out.println(produto.getAmout());
         List<Produto> todos = produtoDao.findAllByNomeCategory("PHONER");
         todos.forEach(x -> System.out.println(x.getName()));
+        BigDecimal amout = produtoDao.findAllByMountByNome("phone");
+        System.out.println("valor do produto : " + amout);
 
     }
 

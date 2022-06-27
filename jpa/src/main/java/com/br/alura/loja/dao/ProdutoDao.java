@@ -3,6 +3,7 @@ package com.br.alura.loja.dao;
 import com.br.alura.loja.model.produto.Produto;
 
 import javax.persistence.EntityManager;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ProdutoDao {
@@ -36,6 +37,13 @@ public class ProdutoDao {
         return  em.createQuery(jpql,Produto.class).
                 setParameter("name",name).
                 getResultList();
+    }
+
+    public BigDecimal findAllByMountByNome(String name){
+        String jpql = "select p.amout from Produto p where p.name=:name";
+        return  em.createQuery(jpql,BigDecimal.class).
+                setParameter("name",name).
+                getSingleResult();
     }
 
 }
