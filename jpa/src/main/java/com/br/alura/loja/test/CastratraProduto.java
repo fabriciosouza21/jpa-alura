@@ -12,9 +12,19 @@ import java.util.List;
 
 public class CastratraProduto {
     public static void main(String[] args) {
+        EntityManager entityManager = JpaUtil.getEntityManageProduto();
+        Produto produto = cadastrarCategoria(entityManager);
+        ProdutoDao produtoDao = new ProdutoDao(entityManager);
+        produto = produtoDao.findById(produto.getId());
+        System.out.println(produto.getAmout());
+        List<Produto> todos = produtoDao.findAllByNomeCategory("PHONER");
+        todos.forEach(x -> System.out.println(x.getName()));
+
+    }
+
+    private static Produto cadastrarCategoria(EntityManager entityManager) {
         Categoria phoner = new Categoria("PHONER");
         Produto produto = new Produto("phone", new BigDecimal("500"),"xiomi",phoner );
-        EntityManager entityManager = JpaUtil.getEntityManageProduto();
         ProdutoDao produtoDao = new ProdutoDao(entityManager);
         CategoryDao categoria = new CategoryDao(entityManager);
         entityManager.getTransaction().begin();
@@ -22,11 +32,7 @@ public class CastratraProduto {
         entityManager.flush();
         produtoDao.cadastra(produto);
 
-        produto = produtoDao.findById(produto.getId());
-        System.out.println(produto.getAmout());
-        List<Produto> todos = produtoDao.findAll();
-        todos.forEach(x -> System.out.println(x.getName()));
-
         entityManager.getTransaction().commit();
+        return produto;
     }
 }

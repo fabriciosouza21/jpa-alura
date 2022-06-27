@@ -24,5 +24,18 @@ public class ProdutoDao {
         String jpql = "select p from Produto p";
         return  em.createQuery(jpql,Produto.class).getResultList();
     }
+    public List<Produto> findAllByNome(String name){
+        String jpql = "select p from Produto p where p.name=:name";
+        return  em.createQuery(jpql,Produto.class).
+                setParameter("name",name).
+                getResultList();
+    }
+
+    public List<Produto> findAllByNomeCategory(String name){
+        String jpql = "select p from Produto p where p.category.name=:name";
+        return  em.createQuery(jpql,Produto.class).
+                setParameter("name",name).
+                getResultList();
+    }
 
 }
