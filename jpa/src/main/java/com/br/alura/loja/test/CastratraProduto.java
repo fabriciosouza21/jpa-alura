@@ -8,6 +8,7 @@ import com.br.alura.loja.util.JpaUtil;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class CastratraProduto {
     public static void main(String[] args) {
@@ -15,16 +16,17 @@ public class CastratraProduto {
         Produto produto = new Produto("phone", new BigDecimal("500"),"xiomi",phoner );
         EntityManager entityManager = JpaUtil.getEntityManageProduto();
         ProdutoDao produtoDao = new ProdutoDao(entityManager);
-        CategoryDao categoryDao = new CategoryDao(entityManager);
+        CategoryDao categoria = new CategoryDao(entityManager);
         entityManager.getTransaction().begin();
-        categoryDao.cadastra(phoner);
-        phoner.setName("Moto g 20");
+        categoria.cadastra(phoner);
         entityManager.flush();
-        entityManager.clear();
-        phoner = entityManager.merge(phoner);
-        phoner.setName("xiomi");
-        entityManager.flush();
-        entityManager.remove(phoner);
+        produtoDao.cadastra(produto);
+
+        produto = produtoDao.findById(produto.getId());
+        System.out.println(produto.getAmout());
+        List<Produto> todos = produtoDao.findAll();
+        todos.forEach(x -> System.out.println(x.getName()));
+
         entityManager.getTransaction().commit();
     }
 }
