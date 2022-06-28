@@ -31,6 +31,9 @@ public class CastratraPedido {
         entityManager.getTransaction().begin();
         pedidoDao.cadastra(pedido);
         entityManager.getTransaction().commit();
+
+        System.out.println(pedidoDao.valorTotalPedido());
+
     }
 
     private static void popularBanco() {
