@@ -13,7 +13,8 @@ public class Produto {
     private String name;
     private BigDecimal amout;
     private String description;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Categoria category;
 
     @Column(name = "data_cadastro")

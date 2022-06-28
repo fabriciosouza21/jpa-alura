@@ -18,7 +18,7 @@ public class Pedido {
     private LocalDate data;
     @Column(name = "valor_total")
     private BigDecimal valorTotal = BigDecimal.ZERO;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Cliente cliente;
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)

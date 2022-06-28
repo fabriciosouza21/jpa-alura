@@ -17,34 +17,18 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
-public class CastratraPedido {
+public class CastratraPerfomace {
     public static void main(String[] args) {
 
         popularBanco();
         EntityManager entityManager = JpaUtil.getEntityManageProduto();
-        ClienteDao  clienteDao = new ClienteDao(entityManager);
-        ProdutoDao produtoDao = new ProdutoDao(entityManager);
         PedidoDao pedidoDao = new PedidoDao(entityManager);
-        Cliente cliente = clienteDao.findById(1L);
-        Produto produto1 = produtoDao.findById(1L);
-        Produto produto2 = produtoDao.findById(2L);
-        Produto produto3 = produtoDao.findById(3L);
-
-        Pedido pedido = new Pedido(LocalDate.now(),new BigDecimal("100.00"), cliente);
-        pedido.adicionarItem(new ItemPedido(10,pedido,produto1));
-        pedido.adicionarItem(new ItemPedido(10,pedido,produto2));
-        pedido.adicionarItem(new ItemPedido(10,pedido,produto3));
-
-
-        entityManager.getTransaction().begin();
-        pedidoDao.cadastra(pedido);
-        entityManager.getTransaction().commit();
-
-        System.out.println(pedidoDao.valorTotalPedido());
-
-        List<RelatorioVendasVo> relatorio = pedidoDao.relatorioVendas();
-
-        relatorio.forEach(System.out::println);
+        Pedido pedido =  pedidoDao.buscaPorIdComCliente(1L);
+        Pedido pedido2 = pedidoDao.findById(1L);
+        System.out.println(pedido2.getCliente().getNome());
+        entityManager.close();
+//        System.out.println(pedido2.getCliente().getNome());
+        System.out.println(pedido.getCliente().getNome());
 
     }
 
@@ -55,21 +39,29 @@ public class CastratraPedido {
         Produto produto1 = new Produto("telefone", new BigDecimal("500"),"xiomi",categoria1 );
         Produto produto2 = new Produto("notbook cce", new BigDecimal("500"),"xiomi",categoria2 );
         Produto produto3 = new Produto("caixa de som", new BigDecimal("500"),"xiomi",categoria3 );
+
         Cliente cliente = new Cliente("João", "1234568485");
+        Pedido pedido = new Pedido(LocalDate.now(),new BigDecimal("100.00"), cliente);
+        pedido.adicionarItem(new ItemPedido(10,pedido,produto1));
+        pedido.adicionarItem(new ItemPedido(10,pedido,produto2));
+        pedido.adicionarItem(new ItemPedido(10,pedido,produto3));
+
         EntityManager entityManager = JpaUtil.getEntityManageProduto();
         ProdutoDao produtoDao = new ProdutoDao(entityManager);
         CategoryDao categoria = new CategoryDao(entityManager);
         ClienteDao  clienteDao = new ClienteDao(entityManager);
+        PedidoDao pedidoDao = new PedidoDao(entityManager);
         entityManager.getTransaction().begin();
         categoria.cadastra(categoria1);
         categoria.cadastra(categoria2);
         categoria.cadastra(categoria3);
-
         entityManager.flush();
         clienteDao.cadastra(cliente);
         produtoDao.cadastra(produto1);
         produtoDao.cadastra(produto2);
         produtoDao.cadastra(produto3);
+        entityManager.flush();
+        pedidoDao.cadastra(pedido);
         entityManager.getTransaction().commit();
     }
 }
