@@ -16,6 +16,7 @@ public class Produto {
     @ManyToOne
     private Categoria category;
 
+    @Column(name = "data_cadastro")
     private LocalDate dataCadastrato = LocalDate.now();
 
     public Produto() {

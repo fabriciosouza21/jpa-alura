@@ -13,6 +13,7 @@ public class ItemPedido {
 
     private Integer quantidade;
 
+    @Column(name = "valor_unitario")
     private BigDecimal precoUnitario;
 
     @ManyToOne
