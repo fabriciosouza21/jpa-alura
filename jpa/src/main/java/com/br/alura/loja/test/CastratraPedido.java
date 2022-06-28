@@ -34,6 +34,11 @@ public class CastratraPedido {
 
         System.out.println(pedidoDao.valorTotalPedido());
 
+        List<Object[]> relatorio = pedidoDao.relatorioVendas();
+        relatorio.forEach(
+                obj -> System.out.println(obj[0] + " - " + obj[1] + " - " + obj[2])
+        );
+
     }
 
     private static void popularBanco() {
