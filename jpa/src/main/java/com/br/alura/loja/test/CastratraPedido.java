@@ -10,6 +10,7 @@ import com.br.alura.loja.model.pedido.Pedido;
 import com.br.alura.loja.model.produto.Categoria;
 import com.br.alura.loja.model.produto.Produto;
 import com.br.alura.loja.util.JpaUtil;
+import com.br.alura.loja.vo.RelatorioVendasVo;
 
 import javax.persistence.EntityManager;
 import java.math.BigDecimal;
@@ -34,10 +35,9 @@ public class CastratraPedido {
 
         System.out.println(pedidoDao.valorTotalPedido());
 
-        List<Object[]> relatorio = pedidoDao.relatorioVendas();
-        relatorio.forEach(
-                obj -> System.out.println(obj[0] + " - " + obj[1] + " - " + obj[2])
-        );
+        List<RelatorioVendasVo> relatorio = pedidoDao.relatorioVendas();
+
+        relatorio.forEach(System.out::println);
 
     }
 
