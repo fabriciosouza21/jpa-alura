@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "produtos")
+@Inheritance(strategy = InheritanceType.JOINED)
+// criar uma tabela separada para cada objeto herdado herança
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
